@@ -1,6 +1,6 @@
-let transactions = [];
+let transactions = "";
 let myChart;
-let account = [];
+let account = "";
 
 fetch("/api/account")
   .then(response => response.json())
@@ -104,7 +104,7 @@ function sendMoney(isAdding) {
   }
 
   // add to beginning of current array of data
-  transactions.unshift(money);
+  transactions.unshift(account);
 
   // re-run logic to populate ui with new record
   populateChart();
@@ -114,7 +114,7 @@ function sendMoney(isAdding) {
   // also send to server
   fetch("/api/account", {
     method: "POST",
-    body: JSON.stringify(money),
+    body: JSON.stringify(account),
     headers: {
       Accept: "application/json, text/plain, */*",
       "Content-Type": "application/json"

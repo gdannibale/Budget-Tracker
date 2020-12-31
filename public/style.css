@@ -4,14 +4,14 @@
   
   body {
     font-size: 16px;
-    font-family: Aharoni;
+    font-family: Arial;
     background-color: #F7FAFC;
   }
   
   button,
   input {
     font-size: 1em;
-    font-family: Aharoni;
+    font-family: Arial;
   }
   
   label {

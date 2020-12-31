@@ -1,8 +1,8 @@
 let transactions = [];
 let myChart;
-let money;
+let account = [];
 
-fetch("/api/money")
+fetch("/api/account")
   .then(response => response.json())
   .then(data => {
     // save db data on global variable
@@ -112,7 +112,7 @@ function sendMoney(isAdding) {
   populateTotal();
 
   // also send to server
-  fetch("/api/money", {
+  fetch("/api/account", {
     method: "POST",
     body: JSON.stringify(money),
     headers: {

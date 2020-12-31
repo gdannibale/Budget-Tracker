@@ -42,7 +42,7 @@ function checkDatabase() {
 
   getAll.onsuccess = function() {
     if (getAll.result.length > 0) {
-      fetch("/api/money/bulk", {
+      fetch("/api/account/bulk", {
         method: "POST",
         body: JSON.stringify(getAll.result),
         headers: {
@@ -53,10 +53,10 @@ function checkDatabase() {
       .then(response => response.json())
       .then(() => {
         // if successful, open a transaction on your pending db
-        const money = db.money(["pending"], "readwrite");
+        const account = db.budget(["pending"], "readwrite");
 
         // access your pending object store
-        const store = money.objectStore("pending");
+        const store = account.objectStore("pending");
 
         // clear all items in your store
         store.clear();

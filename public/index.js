@@ -26,7 +26,7 @@ function populateTable() {
   const tbody = document.querySelector("#tbody");
   tbody.innerHTML = "";
 
-  transactions.forEach(transaction => {
+  transactions.forEach(account => {
     // create and populate a table row
     const tr = document.createElement("tr");
     tr.innerHTML = `

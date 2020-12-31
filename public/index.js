@@ -30,8 +30,8 @@ function populateTable() {
     // create and populate a table row
     const tr = document.createElement("tr");
     tr.innerHTML = `
-      <td>${money.name}</td>
-      <td>${money.value}</td>
+      <td>${account.name}</td>
+      <td>${account.value}</td>
     `;
 
     tbody.appendChild(tr);

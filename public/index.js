@@ -1,8 +1,10 @@
+// let budget = require("../models/budget");
+
 let transactions = "";
 let myChart;
-let account = "";
+// let account = "";
 
-fetch("/api/account")
+fetch("/api/budget")
   .then(response => response.json())
   .then(data => {
     // save db data on global variable
@@ -26,12 +28,12 @@ function populateTable() {
   const tbody = document.querySelector("#tbody");
   tbody.innerHTML = "";
 
-  transactions.forEach(account => {
+  transactions.forEach(budget => {
     // create and populate a table row
     const tr = document.createElement("tr");
     tr.innerHTML = `
-      <td>${account.name}</td>
-      <td>${account.value}</td>
+      <td>${budget.name}</td>
+      <td>${budget.value}</td>
     `;
 
     tbody.appendChild(tr);
@@ -78,7 +80,7 @@ function populateChart() {
   });
 }
 
-function sendMoney(isAdding) {
+function sendBudget(isAdding) {
   const nameEl = document.querySelector("#t-name");
   const amountEl = document.querySelector("#t-amount");
   const errorEl = document.querySelector("form .error");
@@ -92,7 +94,7 @@ function sendMoney(isAdding) {
   }
 
   // create record
-  const money = {
+  const budget = {
     name: nameEl.value,
     value: amountEl.value,
     date: new Date().toISOString()
@@ -100,11 +102,11 @@ function sendMoney(isAdding) {
 
   // if subtracting funds, convert amount to negative number
   if (!isAdding) {
-    money.value *= -1;
+    budget.value *= -1;
   }
 
   // add to beginning of current array of data
-  transactions.unshift(account);
+  transactions.unshift(budget);
 
   // re-run logic to populate ui with new record
   populateChart();
@@ -112,9 +114,9 @@ function sendMoney(isAdding) {
   populateTotal();
 
   // also send to server
-  fetch("/api/account", {
+  fetch("/api/budget", {
     method: "POST",
-    body: JSON.stringify(account),
+    body: JSON.stringify(budget),
     headers: {
       Accept: "application/json, text/plain, */*",
       "Content-Type": "application/json"
@@ -132,7 +134,7 @@ function sendMoney(isAdding) {
     })
     .catch(err => {
       // fetch failed, so save in indexed db
-      saveRecord(money);
+      saveRecord(budget);
 
       // clear form
       nameEl.value = "";
@@ -142,10 +144,10 @@ function sendMoney(isAdding) {
 
 document.querySelector("#add-btn").addEventListener("click", function(event) {
   event.preventDefault();
-  sendMoney(true);
+  sendBudget(true);
 });
 
 document.querySelector("#sub-btn").addEventListener("click", function(event) {
   event.preventDefault();
-  sendMoney(false);
+  sendBudget(false);
 });

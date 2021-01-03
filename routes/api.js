@@ -1,18 +1,8 @@
 const router = require("express").Router();
-const Money = require("../models/account.js");
+const Budget = require("../models/budget.js");
 
-router.post("/api/account", ({ body }, res) => {
-  Money.create(body)
-    .then(dbMoney => {
-      res.json(dbMoney);
-    })
-    .catch(err => {
-      res.status(400).json(err);
-    });
-});
-
-router.post("/api/account/bulk", ({ body }, res) => {
-  Money.insertMany(body)
+router.post("/api/budget", ({ body }, res) => {
+  Budget.create(body)
     .then(dbBudget => {
       res.json(dbBudget);
     })
@@ -21,8 +11,18 @@ router.post("/api/account/bulk", ({ body }, res) => {
     });
 });
 
-router.get("/api/account", (req, res) => {
-  Money.find({})
+router.post("/api/budget/bulk", ({ body }, res) => {
+  Budget.insertMany(body)
+    .then(dbBudget => {
+      res.json(dbBudget);
+    })
+    .catch(err => {
+      res.status(400).json(err);
+    });
+});
+
+router.get("/api/budget", (req, res) => {
+  Budget.find({})
     .sort({ date: -1 })
     .then(dbBudget => {
       res.json(dbBudget);
